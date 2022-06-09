@@ -1,9 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
-echo Report for $HOSTNAME  #title
+Hostname=$(hostname)
+FQDN=$(hostname --fqdn)
+OS=$(grep PRETTY_NAME /etc/os-release)
+IP=$(hostname -I)
+Space=$(df -h --output=avail /dev/sda3 | grep '[0-8]')
+
+cat << FOF
+
+echo "Report for $Hostname"
 echo ===================================
-echo "FQDN = $(hostname --fqdn)" #thsi command will show FQDN
-echo "Operating System name and version: $(grep PRETTY /etc/os-release)" #This will show os name and version
-echo "IP address = $(hostname -I)" #IPV4 Address
-echo "Root Filesystem Free Space: $(df -h --output=avail /dev/sda3 | grep '[0-8]')" #in this i have used grep to show the size only
+FQDN = $FQDN
+Operating System name and version= $OS
+IP address = $IP
+Root Filesystem Free Space= $Space
 echo ====================================
+
+FOF
