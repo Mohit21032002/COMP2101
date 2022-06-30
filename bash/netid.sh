@@ -19,8 +19,9 @@
 #            e.g. network-config-expanded.sh ens34
 #         Your script must allow the user to specify both verbose mode and an interface name if they want
 
-
-# getting data
+#====================
+#getting data =======
+#====================
 while [ $# -gt 0 ]; do
 case "$1" in
            -v )
@@ -94,12 +95,14 @@ EOF
 #####
 
 # define the interface being summarized
-#interface="ens33"
-systeminterfaces="$interface"
+#============================================
+#intializating new interfaces================
+#============================================
+systeminterfaces="$interface" # created newinterface variable
 if [ -z "$systeminterfaces" ]; then
-systeminterfaces="$(ip r| grep -v default | awk '{print $3}' | uniq)"
+systeminterfaces="$(ip r| grep -v default | awk '{print $3}' | uniq)" #used awk to perfectly get the desired interface
 fi
-for interface in $systeminterfaces; 
+for interface in $systeminterfaces; # runing for loop for interface to run the loop in systeminterface
 do
  [ "$verbose" = "yes" ] && echo "Reporting on interface(s): $interface"
 
